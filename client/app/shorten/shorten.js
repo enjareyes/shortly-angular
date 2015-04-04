@@ -1,11 +1,13 @@
 angular.module('shortly.shorten', [])
 
-.controller('ShortenController', function ($scope, Links) { //$location?
-  $scope.link = {}
+.controller('ShortenController', function ($scope, $location, Links) { //$location?
+  angular.extend($scope, Links)
 
-  $scope.addLink = function(){
-    Links.addLink($scope.link)
+  $scope.addLink = function(url){
+    $scope.isWorking = true;
+    Links.addLink(url)
     .then(function () {
+      $scope.isWorking = false;
       $location.path('/');
     })
   }
